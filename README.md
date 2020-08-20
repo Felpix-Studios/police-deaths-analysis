@@ -9,6 +9,8 @@ I wanted to gather a greater understanding of the current situation about polici
   - [ ] Pie, bar, and scatter charts.
     - [x] Race
     - [x] Location
+    - [x] Gender
+    - [x] Year-by-year
     - [ ] Conviction rates
   - [ ] Comparable FBI crime stats.
   - [ ] Calendar view.
