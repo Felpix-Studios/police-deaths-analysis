@@ -11,12 +11,14 @@ fig, axs = plt.subplots(4,4)
 cmap = plt.get_cmap('Spectral')
 colors = [cmap(i) for i in np.linspace(0, 1, 8)]
 
-#Titles
+# Titles
 axs[0,0].set_title("Killings by Race")
 axs[0,1].set_title("Killings by State")
 axs[0,2].set_title("Killings by Gender")
 axs[0,3].set_title("Killings over Time")
 axs[1,0].set_title("Killings by Race Against Population per Million")
+axs[1,1].set_title("Killings by Day")
+
 print(data.head())
 
 # Get race related data
@@ -65,4 +67,16 @@ time_count=time_count[0:-1]
 
 axs[0,3].plot(time_count)
 
+# D/D data
+day_count = data["Date of Incident (month/day/year)"].groupby(data["Date of Incident (month/day/year)"]).agg('count')
+
+print(day_count)
+print(day_count.index)
+print(day_count.values)
+
+axs[1,1].plot(day_count)
+
+day_count.drop()
+
+print(day_count)
 plt.show()
