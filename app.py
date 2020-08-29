@@ -78,22 +78,25 @@ time_count=time_count[0:-1]
 axs[3,0].plot(time_count, color="red")
 
 # D/D data
-day_count = data["Date of Incident (month/day/year)"].groupby(data["Date of Incident (month/day/year)"]).agg('count')
+day_data = data["Date of Incident (month/day/year)"].groupby(data["Date of Incident (month/day/year)"]).agg('count')
+day_data.rolling(30,center=True)
+day_dates = data["Date of Incident (month/day/year)"].value_counts().index
+day_count = data["Date of Incident (month/day/year)"]
 
 print(day_count)
-print(day_count.index)
-print(day_count.values)
 
-axs[0,1].plot(day_count)
+axs[0,1].plot(day_data)
 
 #day_count.drop()
 
+# Drop unknown category
 #data.drop(data[data["Criminal Charges?"] == "No known charges"].index, inplace = True)
 
 # Reframe data for simplification
 data.loc[data["Criminal Charges?"] == "Charged, Acquitted", "Criminal Charges?"] = "No"
 data.loc[data["Criminal Charges?"] == "Charged, Mistrial", "Criminal Charges?"] = "No"
 data.loc[data["Criminal Charges?"] == "NO", "Criminal Charges?"] = "No"
+data.loc[data["Criminal Charges?"] == "Charged with a crime, Acquitted", "Criminal Charges?"] = "No"
 data.loc[data["Criminal Charges?"] == "Charged, Charges Tossed", "Criminal Charges?"] = "No"
 data.loc[data["Criminal Charges?"] == "Charged, Charges Dropped", "Criminal Charges?"] = "No"
 data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 30 years in prison", "Criminal Charges?"] = "Charged, Convicted"
@@ -113,7 +116,12 @@ data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to Life in 
 data.loc[data["Criminal Charges?"] == "Charged with manslaughter", "Criminal Charges?"] = "Charged with a crime"
 data.loc[data["Criminal Charges?"] == "Charged, Mistrial, Plead Guilty to Civil Rights Charges", "Criminal Charges?"] = "Charged, Convicted"
 data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 3 months in jail", "Criminal Charges?"] = "Charged, Convicted"
+data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 6 years in prison", "Criminal Charges?"] = "Charged, Convicted"
 data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 16 years in prison", "Criminal Charges?"] = "Charged, Convicted"
+data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 40 years to Life in prison", "Criminal Charges?"] = "Charged, Convicted"
+data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 25 years in prison", "Criminal Charges?"] = "Charged, Convicted"
+data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 40 years in prison", "Criminal Charges?"] = "Charged, Convicted"
+data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 3 years probation", "Criminal Charges?"] = "Charged, Convicted"
 data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to 4 years", "Criminal Charges?"] = "Charged, Convicted"
 data.loc[data["Criminal Charges?"] == "Charged, Convicted, Sentenced to life in prison without parole, plus 16 years", "Criminal Charges?"] = "Charged, Convicted"
 
@@ -121,8 +129,8 @@ data.loc[data["Criminal Charges?"] == "Charged with a crime", "Criminal Charges?
 data.loc[data["Criminal Charges?"] == "No", "Criminal Charges?"] = "Not Charged"
 
 
-print(data["Criminal Charges?"])
-print(data["Criminal Charges?"].count())
+#print(data["Criminal Charges?"])
+#print(data["Criminal Charges?"].count())
 account_labels = data["Criminal Charges?"].value_counts().index
 account_counts = data["Criminal Charges?"].value_counts()
 #axs[2,1].pie(account_counts,labels=account_labels,autopct="%1.1f%%",colors=colors)
