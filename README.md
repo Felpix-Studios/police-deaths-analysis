@@ -11,7 +11,7 @@ I wanted to gather a greater understanding of the current situation about polici
     - [x] Location
     - [x] Gender
     - [x] Year-by-year
-    - [ ] Conviction rates
+    - [ ] Accountability rates
   - [ ] Comparable FBI crime stats.
   - [ ] Calendar view.
   - [ ] Map view.

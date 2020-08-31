@@ -3,6 +3,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os, sys, random, pickle
+import calmap
 
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 
@@ -26,6 +27,7 @@ axs[0,0].set_title("Killings by Race Against Population per Million")
 axs[1,0].set_title("Killings by State")
 axs[2,0].set_title("Killings by Gender")
 axs[3,0].set_title("Killings over Time")
+axs[3,1].set_title("Killings during 2020")
 axs[0,1].set_title("Killings by Day")
 axs[1,1].set_title("Killings by Race")
 axs[2,1].set_title("Killings by Accountability")
@@ -86,6 +88,7 @@ day_count = data["Date of Incident (month/day/year)"]
 print(day_count)
 
 axs[0,1].plot(day_data)
+calmap.yearplot(day_data,daylabels='MTWTFSS',year=2020,ax=axs[3,1])
 
 #day_count.drop()
 
